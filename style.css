@@ -1,0 +1,49 @@
+body {
+    border: solid black;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.calc-container {
+    border: solid black;
+    width: 510px;
+    height: 750px;
+}
+
+
+.display {
+    border: solid black;
+    height: 145px;
+}
+
+.btn-container {
+    border:  solid yellow;
+    height: 590px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    gap: 15px;
+}
+
+
+.zero {
+   padding: 10px 20px;
+    margin:  4px 2px;
+    border-radius: 76px;
+    border: none;
+    width: 215px;
+    
+}
+
+
+
+button {
+    height: 100px;
+    width: 101px;
+    border-radius: 50%;
+    border: none;
+
+}
