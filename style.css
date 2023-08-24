@@ -4,6 +4,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 
@@ -17,7 +18,17 @@ body {
 .display {
     border: solid black;
     height: 145px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-size:100px
 }
+
+.text {
+    margin-right: 70px;
+}
+
+
 
 .btn-container {
     border:  solid yellow;
@@ -29,7 +40,7 @@ body {
 }
 
 
-.zero {
+#zero {
    padding: 10px 20px;
     margin:  4px 2px;
     border-radius: 76px;
@@ -45,5 +56,6 @@ button {
     width: 101px;
     border-radius: 50%;
     border: none;
+    font-size: 35px;
 
 }
