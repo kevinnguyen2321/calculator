@@ -18,10 +18,12 @@ body {
 .display {
     border: solid black;
     height: 145px;
+    width: 505px;
+    overflow: auto;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    font-size:100px
+    font-size:90px
 }
 
 .text {
