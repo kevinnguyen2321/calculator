@@ -59,61 +59,49 @@ function handleBtnClick (e) {
     } else {
         displayValue += buttonText;
         display.textContent = displayValue;
-        if (displayValue.includes('+') || displayValue.includes('-') || displayValue.includes ('÷') || displayValue.includes('x')) {
-            handleOperators(e);
-        }
+        handleOperators(e);
     }
 }
 
 
 
 function handleOperators(e) {
-    let splitValue = displayValue.split('')
-    if (splitValue.includes('+')) {
-        let indexOp = splitValue.indexOf('+');
-        let firstNum = splitValue.slice(0,indexOp).join('');
-        let secondNum = splitValue.slice (indexOp + 1, splitValue.indexOf('=')).join('');
-        let operator = splitValue[indexOp];
-        if (displayValue.includes('=')) {
-            let result = operate(operator,firstNum, secondNum)
-            console.log(result)
-            display.textContent = result;
-        }
     
-    } else if (splitValue.includes('-')) {
-        let indexOp = splitValue.indexOf('-');
-        let firstNum = splitValue.slice(0,indexOp).join('');
-        let secondNum = splitValue.slice (indexOp + 1, splitValue.indexOf('=')).join('');
-       let operator = splitValue[indexOp];
-       if (displayValue.includes('=')) {
-        let result = operate(operator,firstNum, secondNum)
-        console.log(result)
-        display.textContent = result;
-       }
-    
-    } else if (splitValue.includes('÷')) {
-        let indexOp = splitValue.indexOf('÷');
-        let firstNum = splitValue.slice(0,indexOp).join('');
-        let secondNum = splitValue.slice (indexOp + 1, splitValue.indexOf('=')).join('');
-       let operator = splitValue[indexOp];
-       if (displayValue.includes('=')) {
-        let result = operate(operator,firstNum, secondNum)
-        console.log(result)
-        display.textContent = result;
-       }
+let operands = displayValue.split(/[\+\-\x\÷]/g);
+let operators = displayValue.match(/[\+\-\x\÷]/g);
+let answer = operands.shift();
 
+for (const operator of operators) {
+    const nextNumber = operands.shift()
+    
+    
+    if (operator === '+') {
+        answer =+ operate(operator,answer,nextNumber)
         
-    } else if (splitValue.includes('x')) {
-        let indexOp = splitValue.indexOf('x');
-        let firstNum = splitValue.slice(0,indexOp).join('');
-        let secondNum = splitValue.slice (indexOp + 1, splitValue.indexOf('=')).join('');
-       let operator = splitValue[indexOp];
-       if (displayValue.includes('=')) {
-        let result = operate(operator,firstNum, secondNum)
-        console.log(result)
-        display.textContent = result;
-       }
+    } else if (operator === '-') {
+        answer =+ operate(operator, answer, nextNumber)
+       
+    } else if (operator === 'x') {
+        answer =+ operate(operator, answer, nextNumber)
+    } else if (operator === '÷') {
+        answer =+ operate(operator, answer, nextNumber)
         
     } 
     
+    if (displayValue.includes('=')) {
+    display.textContent = answer;
+    
+    }   
 }
+
+}
+
+
+
+let problem = "17 + 2 -"
+
+let numbers = problem.split(/[\+\-\x\÷]/g);
+let signs = problem.match(/[\+\-\x\÷]/g);
+console.log(numbers)
+console.log(signs)
+
