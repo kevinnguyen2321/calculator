@@ -1,4 +1,4 @@
-//DOM Variables and Display Variable//
+// DOM Variables and Display Variable//
 let displayValue = "";
 const display = document.querySelector('.text');
 const buttons = document.querySelectorAll('.calc-btns')
@@ -65,43 +65,64 @@ function handleBtnClick (e) {
 
 
 
+
 function handleOperators(e) {
-    
-let operands = displayValue.split(/[\+\-\x\÷]/g);
+
+let operands = displayValue.split(/[\+\-\x\÷]/g).filter(Boolean);
 let operators = displayValue.match(/[\+\-\x\÷]/g);
-let answer = operands.shift();
+let firstNumber = operands.shift()
+let answer = "";
+
 
 for (const operator of operators) {
-    const nextNumber = operands.shift()
+    const nextNumber = operands.shift();
     
-    
-    if (operator === '+') {
-        answer =+ operate(operator,answer,nextNumber)
-        
-    } else if (operator === '-') {
-        answer =+ operate(operator, answer, nextNumber)
+    if (nextNumber === undefined && displayValue.length >= 2) {
+        display.textContent = firstNumber;
        
-    } else if (operator === 'x') {
-        answer =+ operate(operator, answer, nextNumber)
-    } else if (operator === '÷') {
-        answer =+ operate(operator, answer, nextNumber)
+
+    } else if (operator === '+') {
+        answer = operate(operator,firstNumber,nextNumber)
         
-    } 
+            firstNumber = answer;
+            operators = [];
     
-    if (displayValue.includes('=')) {
-    display.textContent = answer;
+    } else if (operator === '-') {
+        answer = operate(operator, firstNumber, nextNumber)
+        
+            firstNumber = answer;
+            operators = [];    
     
-    }   
-}
+    } else if (operator === 'x') {
+        answer = operate(operator, firstNumber, nextNumber);
+        
+            firstNumber = answer;
+            operators = [];
+            
+    } else if (operator === '÷') {
+        
+            if (nextNumber === 0) {
+                display.textContent = "ERROR"
+                
+            } else {
+                answer = operate(operator, firstNumber, nextNumber)
+                firstNumber = answer;
+                operators = [];
+            }
+            
+    } if (displayValue.includes('=')) {
+            display.textContent = answer;
+            }
+        
+        } 
+    }
 
-}
 
 
 
-let problem = "17 + 2 -"
 
-let numbers = problem.split(/[\+\-\x\÷]/g);
-let signs = problem.match(/[\+\-\x\÷]/g);
-console.log(numbers)
-console.log(signs)
+    
+
+
+
 
