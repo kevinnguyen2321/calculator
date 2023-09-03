@@ -1,7 +1,11 @@
 // DOM Variables and Display Variable//
 let displayValue = "";
+let decimalAdded = false;
+const pattern = /[+\-\x\÷]/;
 const display = document.querySelector('.text');
 const buttons = document.querySelectorAll('.calc-btns')
+
+
 
 
 //Event Listener for buttons//
@@ -51,16 +55,56 @@ function handleBtnClick (e) {
     if (buttonText === 'AC') {
         display.textContent = 0;
         displayValue = "";
-        
+        decimalAdded = false;
+    
     } else if (buttonText === 'Clear') {
         display.textContent = "";
         displayValue = ""
+        decimalAdded = false;
         
+    
+    }else if ((displayValue[displayValue.length-1] == 0 && displayValue[displayValue.length -2] === "÷")  && buttonText === '=') {
+        display.textContent = "ERROR";
+        displayValue = "";
+    
+    
+    } else if (Array.from(displayValue).includes('+') || Array.from(displayValue).includes('-')|| Array.from(displayValue).includes('x')
+    || Array.from(displayValue).includes('÷')) {
+            if (pattern.test(displayValue[displayValue.length-1])) {
+                let end = Array.from(displayValue).pop();
+                display.textContent = displayValue;
+            } 
+                if (buttonText!== "+" && buttonText!== "-" && buttonText!== "x" && buttonText!== "÷" ) {
+                    display.textContent = displayValue + buttonText;
+                    displayValue = display.textContent
+                        if (buttonText === "=") {
+                            handleOperators(e)
+                        }
+                }
+    
+} else if (buttonText === '.') {
+            if (!decimalAdded) {
+                displayValue += buttonText;
+                display.textContent = displayValue;
+                decimalAdded = true; 
+            }
+            
+   
+}else if (buttonText === '=') {
+        handleOperators(e)
+        
+    }  else if (/[+\-\x\÷]/.test(buttonText)) {
+        if (!displayValue) {
+           display.textContent = 0;
+        
+        }  else {
+            displayValue += buttonText;
+            display.textContent = displayValue;
+        } 
     } else {
         displayValue += buttonText;
         display.textContent = displayValue;
-        handleOperators(e);
-    }
+    } 
 }
 
 
@@ -68,61 +112,77 @@ function handleBtnClick (e) {
 
 function handleOperators(e) {
 
+const buttonText = e.target.textContent;
 let operands = displayValue.split(/[\+\-\x\÷]/g).filter(Boolean);
 let operators = displayValue.match(/[\+\-\x\÷]/g);
 let firstNumber = operands.shift()
 let answer = "";
 
-
-for (const operator of operators) {
-    const nextNumber = operands.shift();
+    for (const operator of operators) {
+        let nextNumber = operands.shift();
     
-    if (nextNumber === undefined && displayValue.length >= 2) {
-        display.textContent = firstNumber;
-       
-
-    } else if (operator === '+') {
+        
+         if (operator === '+') {
         answer = operate(operator,firstNumber,nextNumber)
-        
             firstNumber = answer;
-            operators = [];
-    
-    } else if (operator === '-') {
-        answer = operate(operator, firstNumber, nextNumber)
-        
-            firstNumber = answer;
-            operators = [];    
-    
-    } else if (operator === 'x') {
-        answer = operate(operator, firstNumber, nextNumber);
-        
-            firstNumber = answer;
-            operators = [];
             
-    } else if (operator === '÷') {
+            
+    
+        } else if (operator === '-') {
+            answer = operate(operator, firstNumber, nextNumber)
+            firstNumber = answer;
+            
+              
+    
+        } else if (operator === 'x') {
+            answer = operate(operator, firstNumber, nextNumber);
+            firstNumber = answer;
+            
+           
+            
+        } else if (operator === '÷') {
         
-            if (nextNumber === 0) {
-                display.textContent = "ERROR"
+            if (nextNumber == 0) {
+                display.textContent = "ERROR";
+                return;
                 
             } else {
                 answer = operate(operator, firstNumber, nextNumber)
                 firstNumber = answer;
-                operators = [];
+                
+                
             }
             
-    } if (displayValue.includes('=')) {
-            display.textContent = answer;
-            }
+        }       
+
+                if (nextNumber === undefined && buttonText === '=') {
+                   firstNumber = Array.from(displayValue).unshift()
+                    display.textContent = displayValue;
+                
+                } else if (buttonText === '=') {
+                    let decimalIndex = answer.toString().indexOf('.');
+                    let stringAnswer = answer.toString();
+                    
+                    if (answer.toString().includes('.') && stringAnswer.length -1 - decimalAdded >= 7) {
+                        display.textContent = answer.toFixed(7) + operands;
+                        displayValue = firstNumber;
+                    } else {
+                        display.textContent = answer + operands;
+                        displayValue = firstNumber;
+                    }
+                    
+                } 
+                
         
-        } 
-    }
-
-
-
-
-
+    } 
+}      
     
 
 
 
 
+
+// let problem = "8.333333"
+// let decimalIndex = problem.indexOf('.');
+
+// console.log(problem.length -1 - decimalIndex )
