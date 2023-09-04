@@ -1,11 +1,11 @@
 body {
-    border: solid black;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     color: whitesmoke;
-    font-family:'Times New Roman', Times, serif
+    font-family:'Times New Roman', Times, serif;
+    background-color: rgb(156, 152, 152)
     
 }
 
