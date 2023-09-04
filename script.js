@@ -97,17 +97,14 @@ function handleBtnClick (e) {
     } else if (buttonText === "Clear") {
        display.textContent = ""
        displayValue = "";
-        
-
     }
     else {
         display.textContent = displayValue.replace(/\.+/g, '.')
-
     }
     
 }
 
-
+ //Function to handle numbers & operators//
 function handleOperators(e) {
 
 const buttonText = e.target.textContent;
@@ -119,40 +116,29 @@ let answer = "";
     for (const operator of operators) {
         let nextNumber = operands.shift();
     
-        
-         if (operator === '+') {
+        if (operator === '+') {
         answer = operate(operator,firstNumber,nextNumber)
             firstNumber = answer;
             
-            
-    
         } else if (operator === '-') {
             answer = operate(operator, firstNumber, nextNumber)
             firstNumber = answer;
             
-              
-    
         } else if (operator === 'x') {
             answer = operate(operator, firstNumber, nextNumber);
             firstNumber = answer;
-            
-           
             
         } else if (operator === '÷') {
         
             if (nextNumber == 0) {
                 display.textContent = "ERROR";
                 return;
-                
+            
             } else {
                 answer = operate(operator, firstNumber, nextNumber)
                 firstNumber = answer;
-                
-                
             }
-            
         }       
-
                 if (nextNumber === undefined && buttonText === '=') {
                    firstNumber = Array.from(displayValue).unshift()
                     display.textContent = displayValue;
@@ -170,8 +156,6 @@ let answer = "";
                     }
                     
                 } 
-                
-        
     } 
 }      
     
@@ -180,12 +164,7 @@ let answer = "";
 
 
 
-// let problem = "2+4"
 
-// let clear = Array.from(problem)
-// console.log(clear.pop())
-
-// console.log(clear)
 
 
 
