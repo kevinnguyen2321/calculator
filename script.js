@@ -89,16 +89,18 @@ function handleBtnClick (e) {
     } else {
         displayValue += buttonText;
         display.textContent = displayValue;
+            
     } 
     if (buttonText === 'AC' || buttonText === '%') {
         display.textContent = 0;
         displayValue = ""
         
     } else if (buttonText === "Clear") {
-       display.textContent = ""
-       displayValue = "";
-    }
-    else {
+       
+       displayValue = displayValue.replace(/Clear/g, "").slice(0,-1)
+       display.textContent = displayValue
+
+    } else {
         display.textContent = displayValue.replace(/\.+/g, '.')
     }
     
