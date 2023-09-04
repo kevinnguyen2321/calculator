@@ -52,19 +52,11 @@ function operate(operator,numOne,numTwo) {
 // Function for each button event//
 function handleBtnClick (e) {
     const buttonText = e.target.textContent;
-    if (buttonText === 'AC') {
-        display.textContent = 0;
-        displayValue = "";
-        decimalAdded = false;
-    
-    } else if (buttonText === 'Clear') {
-        display.textContent = "";
-        displayValue = ""
-        decimalAdded = false;
+ 
         
-    
-    }else if ((displayValue[displayValue.length-1] == 0 && displayValue[displayValue.length -2] === "÷")  && buttonText === '=') {
+     if ((displayValue[displayValue.length-1] == 0 && displayValue[displayValue.length -2] === "÷")  && buttonText === '=') {
         display.textContent = "ERROR";
+        alert('ERROR')
         displayValue = "";
     
     
@@ -79,21 +71,14 @@ function handleBtnClick (e) {
                     displayValue = display.textContent
                         if (buttonText === "=") {
                             handleOperators(e)
-                        }
+                        } 
                 }
     
-} else if (buttonText === '.') {
-            if (!decimalAdded) {
-                displayValue += buttonText;
-                display.textContent = displayValue;
-                decimalAdded = true; 
-            }
-            
-   
-}else if (buttonText === '=') {
+    
+    } else if (buttonText === '=') {
         handleOperators(e)
         
-    }  else if (/[+\-\x\÷]/.test(buttonText)) {
+    }  else if (/[+\-\x\÷\%]/.test(buttonText)) {
         if (!displayValue) {
            display.textContent = 0;
         
@@ -105,9 +90,22 @@ function handleBtnClick (e) {
         displayValue += buttonText;
         display.textContent = displayValue;
     } 
+    if (buttonText === 'AC' || buttonText === '%') {
+        display.textContent = 0;
+        displayValue = ""
+        
+    } else if (buttonText === "Clear") {
+       display.textContent = ""
+       displayValue = "";
+        
+
+    }
+    else {
+        display.textContent = displayValue.replace(/\.+/g, '.')
+
+    }
+    
 }
-
-
 
 
 function handleOperators(e) {
@@ -182,7 +180,13 @@ let answer = "";
 
 
 
-// let problem = "8.333333"
-// let decimalIndex = problem.indexOf('.');
+// let problem = "2+4"
 
-// console.log(problem.length -1 - decimalIndex )
+// let clear = Array.from(problem)
+// console.log(clear.pop())
+
+// console.log(clear)
+
+
+
+
